@@ -26,3 +26,8 @@ Auth::routes([
 ]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
+    // Kenapa hanya '/' saja? Karena sudah disetting pada app/Providers/RouteService.php line 20
+    Route::get('/', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard.index'); // Method 'index' diambil dari function pada DashboardController
+});

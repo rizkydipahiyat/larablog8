@@ -18,6 +18,7 @@ class RouteServiceProvider extends ServiceProvider
      * @var string
      */
     public const HOME = '/home';
+    public const DASHBOARD = '/dashboard'; // Setelah membuat variabel baru jangan lupa ganti pada LoginController untuk redirectnya
 
     /**
      * Define your route model bindings, pattern filters, etc.
