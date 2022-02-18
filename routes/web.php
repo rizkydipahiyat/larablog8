@@ -14,22 +14,17 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/localization/{language}', App\Http\Controllers\LocalizationController::class)->name('localization.switch');
+Route::get('/localization/{language}', \App\Http\Controllers\LocalizationController::class)->name('localization.switch');
 
 Route::get('/', function () {
     return view('welcome');
-});
-Route::get('/dashboard', function () {
-    return view('layouts.dashboard');
 });
 
 Auth::routes([
     'register' => false
 ]);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
+Route::group(['prefix' => 'dashboard', 'middleware' => ['web', 'auth']], function () {
     // Kenapa hanya '/' saja? Karena sudah disetting pada app/Providers/RouteService.php line 20
-    Route::get('/', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard.index'); // Method 'index' diambil dari function pada DashboardController
+    Route::get('/', [\App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard.index'); // Method 'index' diambil dari function pada DashboardController
 });
