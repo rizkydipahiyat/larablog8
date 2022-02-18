@@ -27,4 +27,9 @@ Auth::routes([
 Route::group(['prefix' => 'dashboard', 'middleware' => ['web', 'auth']], function () {
     // Kenapa hanya '/' saja? Karena sudah disetting pada app/Providers/RouteService.php line 20
     Route::get('/', [\App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard.index'); // Method 'index' diambil dari function pada DashboardController
+    /**
+     * php artisan route:list --name=categories
+     * perintah diatas untuk menampilkan route categories saja
+     */
+    Route::resource('/categories', \App\Http\Controllers\CategoryController::class);
 });
