@@ -28,6 +28,10 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['web', 'auth']], functio
     // Kenapa hanya '/' saja? Karena sudah disetting pada app/Providers/RouteService.php line 20
     Route::get('/', [\App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard.index'); // Method 'index' diambil dari function pada DashboardController
     /**
+     * jika controller resource ada method baru maka letakan diatas resource
+     */
+    Route::get('/categories/select', [\App\Http\Controllers\CategoryController::class, 'select'])->name('categories.select');
+    /**
      * php artisan route:list --name=categories
      * perintah diatas untuk menampilkan route categories saja
      */
