@@ -81,6 +81,12 @@
    <script>
       $(function (){
          // select2 
+         function generateSlug(value){
+            return value.trim()
+               .toLowerCase()
+               .replace(/[^a-z\d-]/gi, '-')
+               .replace(/-+/g, '-').replace(/^-|-$/g, "");
+         } 
          //parent category
          $('#select_category_parent').select2({
             theme: 'bootstrap4',
@@ -101,6 +107,18 @@
                   };
                }
             }
+         });
+         // event:input title
+         $('#input_category_title').change(function() {
+            let title = $(this).val();
+            let parent_category = $('#select_category_parent').val() ?? "";
+            $('#input_category_slug').val(generateSlug(title +" "+ parent_category));
+         });
+         // event:select parent category
+         $('#select_category_parent').change(function() {
+            let title = $('#input_category_title').val();
+            let parent_category = $(this).val() ?? "";
+            $('#input_category_slug').val(generateSlug(title +" "+ parent_category));
          });
       })
    </script>
