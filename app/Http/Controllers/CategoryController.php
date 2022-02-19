@@ -18,7 +18,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::whereNull('parent_id')->with('derivative')->get();
+        $categories = Category::onlyParent()->with('derivative')->get();
         return view('categories.index', compact('categories'));
     }
 
