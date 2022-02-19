@@ -17,6 +17,12 @@ Breadcrumbs::for('categories', function ($trail) {
    $trail->push('Category', route('categories.index'));
 });
 
+// Dashboard > Categories > Add
+Breadcrumbs::for('add_category', function ($trail) {
+   $trail->parent('categories');
+   $trail->push('Add', route('categories.create'));
+});
+
 // Home > About
 // Breadcrumbs::for('about', function ($trail) {
 //     $trail->parent('home');

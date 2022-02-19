@@ -4,8 +4,8 @@
     {{ trans('categories.title.create') }}
 @endsection
 
-@section('breadscrumbs')
-    Breadscrumbs
+@section('breadcrumbs')
+    {{ Breadcrumbs::render('add_category') }}
 @endsection
 
 @section('content')
