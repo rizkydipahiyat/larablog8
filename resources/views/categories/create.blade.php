@@ -35,13 +35,15 @@
                   </label>
                   <div class="input-group">
                      <div class="input-group-prepend">
-                        <button id="button_category_thumbnail" data-input="input_category_thumbnail" class="btn btn-primary" type="button">
+                        <button id="button_category_thumbnail" data-input="input_category_thumbnail" data-preview="holder" class="btn btn-primary" type="button">
                            {{ trans('categories.button.browse.value') }}
                         </button>
                      </div>
                      <input id="input_category_thumbnail" name="thumbnail" value="" type="text" class="form-control" placeholder="{{ trans('categories.form_control.input.thumbnail.placeholder') }}" readonly />
                   </div>
                </div>
+               {{-- preview thumbnail --}}
+               <div id="holder"></div>
                <!-- parent_category -->
                <div class="form-group">
                   <label for="select_category_parent" class="font-weight-bold">{{ trans('categories.form_control.select.parent_category.label')}}</label>
@@ -75,6 +77,8 @@
 @push('javascript-external')
     <script src="{{ asset('vendor/select2/js/select2.min.js') }}"></script>
     <script src="{{ asset('vendor/select2/js/i18n/' .app()->getLocale() . '.js') }}"></script>
+    {{-- filemanager --}}
+    <script src="{{ asset('vendor/laravel-filemanager/js/stand-alone-button.js')}}"></script>
 @endpush
 
 @push('javascript-internal')
@@ -120,6 +124,9 @@
             let parent_category = $(this).val() ?? "";
             $('#input_category_slug').val(generateSlug(title +" "+ parent_category));
          });
+
+         // event:thumbnail
+         $('#button_category_thumbnail').filemanager('image');
       })
    </script>
 @endpush
