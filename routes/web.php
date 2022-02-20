@@ -36,4 +36,8 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['web', 'auth']], functio
      * perintah diatas untuk menampilkan route categories saja
      */
     Route::resource('/categories', \App\Http\Controllers\CategoryController::class);
+    // file manager
+    Route::group(['prefix' => 'filemanager'], function () {
+        \UniSharp\LaravelFilemanager\Lfm::routes();
+    });
 });
