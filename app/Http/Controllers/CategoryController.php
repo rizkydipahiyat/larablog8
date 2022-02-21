@@ -60,6 +60,8 @@ class CategoryController extends Controller
             'thumbnail' => 'required',
             'description' => 'required|string|max:240',
         ]);
+
+        dd($request->all());
     }
 
     /**
