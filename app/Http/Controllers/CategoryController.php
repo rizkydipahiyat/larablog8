@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use PhpParser\Node\Stmt\TryCatch;
 
 /** php artisan make:controller CategoryController --resource --model=Category
  * perintah diatas untuk membuat CRUD dan auto import models category 
@@ -55,6 +56,7 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+        // Proses validasi ke data kategori
         $validator = Validator::make($request->all(), [
             'title' => 'required|string|max:60',
             'slug' => 'required|string|unique:categories,slug',
@@ -69,8 +71,24 @@ class CategoryController extends Controller
             return redirect()->back()->withInput($request->all())->withErrors($validator);
         }
 
-        // proses insert data
-        dd("proses insert berhasil", $request->all());
+        // Proses Insert Data Kategori
+        try {
+            // jangan lupa protected fillable pada model category
+            Category::create([
+                'title' => $request->title,
+                'slug' => $request->slug,
+                'thumbnail' => parse_url($request->thumbnail)['path'],
+                'description' => $request->description,
+                'parent_id' => $request->parent_category
+            ]);
+            return redirect()->route('categories.index');
+        } catch (\Throwable $th) {
+            //throw $th;
+            if ($request->has('parent_category')) {
+                $request['parent_category'] = Category::select('id', 'title')->find($request->parent_category);
+            }
+            return redirect()->back()->withInput($request->all())->withErrors($validator);
+        }
     }
 
     /**

@@ -9,6 +9,7 @@ class Category extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['title', 'slug', 'thumbnail', 'description', 'parent_id'];
     /**
      * Membuat Query Scope - Eloquent
      * Scope Only Parent
